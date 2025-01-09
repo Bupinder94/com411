@@ -1,3 +1,4 @@
+# tui.py
 class UserInterface:
     @staticmethod
     def display_title(title):
@@ -11,6 +12,7 @@ class UserInterface:
         print("\nPlease enter the letter which corresponds with your desired menu choice:")
         print("[A] View Data")
         print("[B] Visualize Data")
+        print("[C] Export Data")
         print("[X] Exit")
         return input("Your choice: ").strip().upper()
 
@@ -30,6 +32,14 @@ class UserInterface:
         print("[B] Park Ranking by Nationality")
         print("[C] Most Popular Month by Park")
         return input("Your choice: ").strip().upper()
+
+    @staticmethod
+    def display_export_options():
+        print("\nSelect the format for exporting data:")
+        print("[1] TXT")
+        print("[2] CSV")
+        print("[3] JSON")
+        return input("Your choice: ").strip()
 
     @staticmethod
     def confirm_choice(choice):

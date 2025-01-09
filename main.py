@@ -1,6 +1,7 @@
 from process import DataProcessor
 from tui import UserInterface
 from visual import Visualizer
+from exporter import DataExporter
 
 class DisneylandReviewAnalyser:
     def __init__(self, file_path):
@@ -33,6 +34,9 @@ class DisneylandReviewAnalyser:
         elif choice == 'B':
             self.ui.confirm_choice("B - Visualize Data")
             self.visualize_data()
+        elif choice == 'C':
+            self.ui.confirm_choice("C - Export Data")
+            self.export_data()
         elif choice == 'X':
             self.ui.confirm_choice("X - Exit")
             self.is_running = False
@@ -81,6 +85,21 @@ class DisneylandReviewAnalyser:
                     month_ratings[month].append(int(row['Rating']))
             avg_month_ratings = {month: sum(ratings)/len(ratings) for month, ratings in month_ratings.items()}
             self.visualizer.plot_bar_chart(avg_month_ratings, "Most Popular Month by Park", "Month", "Average Rating")
+        else:
+            self.ui.invalid_choice()
+
+    def export_data(self):
+        exporter = DataExporter(self.processor.data)
+        export_choice = self.ui.display_export_options()
+        if export_choice == '1':
+            exporter.export_to_txt("exported_data.txt")
+            self.ui.display_message("Data exported to exported_data.txt")
+        elif export_choice == '2':
+            exporter.export_to_csv("exported_data.csv")
+            self.ui.display_message("Data exported to exported_data.csv")
+        elif export_choice == '3':
+            exporter.export_to_json("exported_data.json")
+            self.ui.display_message("Data exported to exported_data.json")
         else:
             self.ui.invalid_choice()
 
